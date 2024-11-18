@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import BarLabel from './BarLabel';
 import logoImage from '../assets/final_logo-removebg-preview.png'; // Replace with your logo image
-import img5650 from '../assets/IMG_5650.JPG';
+import img5650 from '../assets/mukul.JPEG';
 
 const Container = styled.section`
   padding: 40px;
@@ -82,6 +82,11 @@ const Option = styled.option`
   font-size: 16px;
 `;
 
+const Logo = styled.img`
+  width: 200px;
+  filter: invert(1);
+`;
+
 function LogoAndBentoBoxes() {
   const [selectedSurface, setSelectedSurface] = useState('');
   const [selectedPeptide, setSelectedPeptide] = useState('');
@@ -99,12 +104,14 @@ function LogoAndBentoBoxes() {
     'Ceramic Tile', 'Stainless Steel Sheet', 'Concrete Slab', 'Granite Countertop', 'Limestone Tile',
     'Porcelain Tile', 'Slate Tile', 'Travertine Tile', 'Onyx Slab', 'Metal Panel'
   ];
-
+  const processFilename = (name) => {
+    return name.split('-')[0].toLowerCase(); // This will convert "Alpha-Peptide" to "alpha"
+  };
   return (
     <Container>
       <BentoGrid>
         <LogoBox>
-          {/* Replace with your logo */}
+          <Logo src={logoImage} alt="Logo" />
         </LogoBox>
         
         <BentoBox>
@@ -116,30 +123,55 @@ function LogoAndBentoBoxes() {
         </BentoBox>
         
         <BentoGrid style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
-          <BentoBox>
-            <BoxTitle>Surface Selection</BoxTitle>
-            <Dropdown
-              value={selectedSurface}
-              onChange={(e) => setSelectedSurface(e.target.value)}
-            >
-              <Option value="" disabled>Select a Surface</Option>
-              {allItems.map((item, index) => (
-                <Option key={index} value={item}>{item}</Option>
-              ))}
-            </Dropdown>
-          </BentoBox>
-          <BentoBox>
-            <BoxTitle>Peptide Selection</BoxTitle>
-            <Dropdown
-              value={selectedPeptide}
-              onChange={(e) => setSelectedPeptide(e.target.value)}
-            >
-              <Option value="" disabled>Select a Peptide</Option>
-              {dummyPeptides.map((peptide, index) => (
-                <Option key={index} value={peptide}>{peptide}</Option>
-              ))}
-            </Dropdown>
-          </BentoBox>
+          
+        <BentoBox>
+  <BoxTitle>Surface Selection</BoxTitle>
+  <Dropdown
+    value={selectedSurface}
+    onChange={(e) => setSelectedSurface(e.target.value)}
+  >
+    <Option value="" disabled>Select a Surface</Option>
+    {allItems.map((item, index) => (
+      <Option key={index} value={item}>{item}</Option>
+    ))}
+  </Dropdown>
+  {selectedSurface && (
+    <div>
+      <h3>{selectedSurface}</h3>
+      <img 
+        src={`/surface_images/${selectedSurface.replace(/\s+/g, "_").toLowerCase()}.png`} 
+        alt={selectedSurface} 
+        style={{ width: "300px", marginTop: "10px" }} 
+      />
+    </div>
+  )}
+</BentoBox>
+
+
+<BentoBox>
+  <BoxTitle>Peptide Selection</BoxTitle>
+  <Dropdown
+    value={selectedPeptide}
+    onChange={(e) => setSelectedPeptide(e.target.value)}
+  >
+    <Option value="" disabled>Select a Peptide</Option>
+    {dummyPeptides.map((peptide, index) => (
+      <Option key={index} value={peptide}>{peptide}</Option>
+    ))}
+  </Dropdown>
+  {selectedPeptide && (
+          <div>
+            <h3>{selectedPeptide}</h3>
+            <img 
+              src={`/peptide_images/${processFilename(selectedPeptide)}_peptide.png`}
+              alt={selectedPeptide} 
+              style={{ width: "300px", marginTop: "10px" }} 
+            />
+          </div>
+        )}
+</BentoBox>
+
+
         </BentoGrid>
 
         <BentoBox>
@@ -147,25 +179,7 @@ function LogoAndBentoBoxes() {
           <BoxDescription><BarLabel /></BoxDescription>
         </BentoBox>
 
-        <ContactBox>
-          <BoxTitle>Contact us</BoxTitle>
-          <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-            {[...Array(4)].map((_, index) => (
-              <div key={index} style={{ textAlign: 'center', margin: '10px' }}>
-                <img 
-                  src={img5650} 
-                  alt={`Contact Person ${index + 1}`} 
-                  style={{ width: '200px', height: '200px', borderRadius: '10px', marginBottom: '10px' }} 
-                />
-                <BoxDescription>
-                  Phone: +91 9429428442<br />
-                  Email: mehta.aditya@iitgn.ac.in<br />
-                  Address: IIT Gandhinagar
-                </BoxDescription>
-              </div>
-            ))}
-          </div>
-        </ContactBox>
+        
       </BentoGrid>
     </Container>
   );

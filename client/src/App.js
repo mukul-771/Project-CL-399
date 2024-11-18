@@ -1,78 +1,31 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router, Routes, and Route
-import GlobalStyle from './styles/GlobalStyles';
-import LogoAndBentoBoxes from './Components/LogoAndBentoBoxes';
-
-
-// Import your pages
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import Footer from './Components/Footer';
 import Home from './pages/Home';
-import SurfaceSelection from './pages/SurfaceSelection'; 
-import PeptideSelection from './pages/PeptideSelection';
+import Tools from './pages/Tools';
 import Glossary from './pages/Glossary';
-import Features from './pages/Features';
+import About from './pages/About';
 import Contact from './pages/Contact';
-import Layout from './Components/Layout';
-
+import Features from './pages/Features';
 
 function App() {
   return (
-    
-    <Router> {/* Wrap the entire application with Router */}
-
-      <GlobalStyle />
-      
-      <Routes> {/* Define all your routes here */}
-        <Route 
-          path="/" 
-          element={
-            <Layout>
-              <Home />
-              <LogoAndBentoBoxes />
-            </Layout>
-          } 
-        />
-        <Route 
-          path="/surface-selection" 
-          element={
-            <Layout>
-              <SurfaceSelection />
-            </Layout>
-          } 
-        />
-        <Route 
-          path="/peptide-selection" 
-          element={
-            <Layout>
-              <PeptideSelection />
-            </Layout>
-          } 
-        />
-        <Route 
-          path="/glossary" 
-          element={
-            <Layout>
-              <Glossary />
-            </Layout>
-          } 
-        />
-        <Route 
-          path="/features" 
-          element={
-            <Layout>
-              <Features />
-            </Layout>
-          } 
-        />
-        <Route 
-          path="/contact" 
-          element={
-            <Layout>
-              <Contact />
-            </Layout>
-          } 
-        />
-      </Routes>
-     
+    <Router>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar />
+        <div style={{ flex: 1 }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tools" element={<Tools />} />
+            <Route path="/glossary" element={<Glossary />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/features" element={<Features />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </Router>
   );
 }

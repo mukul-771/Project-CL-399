@@ -1,75 +1,106 @@
 // src/components/Navbar.js
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaReact } from 'react-icons/fa';
-import { useNavigate, useLocation } from 'react-router-dom'; // Import useNavigate and useLocation
+import logo from '../assets/final_logo-removebg-preview.png';
 
-// Styled-components for styling the Navbar
 const Nav = styled.nav`
-  background: #0b59de;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  align-items: center;
-  color: #fff;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
 `;
 
-const NavLogo = styled.div`
-  color: #f2f2f2;
+const NavContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  text-decoration: none;
-  font-size: 24px;
-  cursor: pointer;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 `;
 
-const NavMenu = styled.div`
+const Logo = styled.img`
+  height: 50px;
+  filter: invert(1);
+`;
+
+const NavLinks = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 2rem;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 `;
 
-const NavItem = styled.div`
-  color: ${props => props.isActive ? '#ffcc00' : '#fff'}; // Highlight color for active link
+const NavLink = styled(Link)`
   text-decoration: none;
-  cursor: pointer;
-  font-weight: ${props => props.isActive ? 'bold' : 'normal'}; // Optional: make active link bold
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #0b59de;
+    background-color: #f0f7ff;
+  }
+
+  &.active {
+    color: #0b59de;
+    background-color: #f0f7ff;
+  }
 `;
 
-// Navbar component
-function Navbar() {
-  const navigate = useNavigate(); // Hook for programmatic navigation
-  const location = useLocation(); // Hook to get the current path
+const Hamburger = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
 
-  // Function to handle navigation
-  const handleNavigation = (path) => {
-    navigate(path); // Navigate to the specified path
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
-
-  // Determine if the current path matches the nav item
-  const isActive = (path) => location.pathname === path;
 
   return (
     <Nav>
-      {/* Logo and brand navigation */}
-      <NavLogo onClick={() => handleNavigation('/')}>
-        <FaReact style={{ marginRight: '10px' }} />
-        CODEV
-      </NavLogo>
-      {/* Navigation Menu */}
-      <NavMenu>
-        <NavItem onClick={() => handleNavigation('/')} isActive={isActive('/')}>Home</NavItem>
-        <NavItem onClick={() => handleNavigation('/surface-selection')} isActive={isActive('/surface-selection')}>Surface Selection</NavItem>
-        <NavItem onClick={() => handleNavigation('/peptide-selection')} isActive={isActive('/peptide-selection')}>Peptide Selection</NavItem>
-        <NavItem onClick={() => handleNavigation('/glossary')} isActive={isActive('/glossary')}>Glossary</NavItem>
-        <NavItem onClick={() => handleNavigation('/features')} isActive={isActive('/features')}>Features</NavItem>
-        <NavItem onClick={() => handleNavigation('/contact')} isActive={isActive('/contact')}>Contact us</NavItem>
-      </NavMenu>
+      <NavContainer>
+        <Link to="/">
+          <Logo src={logo} alt="Logo" />
+        </Link>
+        <Hamburger onClick={toggleMenu}>☰</Hamburger>
+        <NavLinks isOpen={isOpen}>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/tools">Research Tools</NavLink>
+          <NavLink to="/glossary">Glossary</NavLink>
+          <NavLink to="/about">About</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
+        </NavLinks>
+      </NavContainer>
     </Nav>
   );
-}
+};
 
 export default Navbar;

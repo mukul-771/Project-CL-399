@@ -1,22 +1,19 @@
 // src/pages/Glossary.js
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SearchBar from '../Components/SearchBar';
 
-// Container for centering content
 const GlossaryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 60vh;  // Adjust as needed
-  text-align: center;  // Center text within the container
+  min-height: 60vh;
   padding: 20px;
   margin-bottom: 40px;
 `;
 
 const Title = styled.h1`
-  font-family: 'Times New Roman', Times, serif; 
+  font-family: 'Times New Roman', Times, serif;
   font-size: 2.5em;
   margin-bottom: 20px;
   color: #333;
@@ -26,27 +23,30 @@ const Description = styled.p`
   font-size: 1.2em;
   margin-bottom: 40px;
   color: #666;
+  text-align: center;
+  max-width: 800px;
 `;
 
 const SearchBarContainer = styled.div`
-  margin-bottom: 30px;  // Space between search bar and glossary
+  margin-bottom: 30px;
   width: 100%;
-  max-width: 100%;  // Adjust max-width to your preferred size
+  max-width: 1200px;
   display: flex;
-  justify-content: center;  // Center align the search bar
-  padding: 0 20px;  // Add padding for responsiveness
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
 `;
 
 const GlossaryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);  // 2 columns in the grid
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   width: 100%;
   max-width: 1200px;
+  padding: 0 20px;
 
-  // Responsive adjustments
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;  // 1 column on smaller screens
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -55,11 +55,11 @@ const GlossaryCard = styled.div`
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -72,127 +72,89 @@ const GlossaryTerm = styled.h3`
 const GlossaryDefinition = styled.p`
   font-size: 1em;
   color: #444;
+  line-height: 1.6;
 `;
 
+const glossaryData = [
+  {
+    term: "API",
+    definition: "Application Programming Interface - A set of rules that allows different software applications to communicate with each other."
+  },
+  {
+    term: "Component",
+    definition: "A reusable piece of UI in React that can contain its own logic and styling."
+  },
+  {
+    term: "State",
+    definition: "Data that determines how a component renders and behaves."
+  },
+  {
+    term: "Props",
+    definition: "Properties passed to a component from its parent component."
+  },
+  {
+    term: "Hook",
+    definition: "Functions that allow you to use state and other React features in functional components."
+  },
+  {
+    term: "JSX",
+    definition: "JavaScript XML - A syntax extension for JavaScript that allows you to write HTML-like code in JavaScript."
+  },
+  {
+    term: "Virtual DOM",
+    definition: "A lightweight copy of the actual DOM that React uses to optimize rendering performance."
+  },
+  {
+    term: "Middleware",
+    definition: "Software that acts as a bridge between different applications or components."
+  },
+  // Add more terms as needed
+];
+
 function Glossary() {
+  const [selectedTerm, setSelectedTerm] = useState(null);
+
+  const handleResultSelect = (result) => {
+    setSelectedTerm(result);
+    const element = document.getElementById(result.term);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
     <GlossaryContainer>
       <Title>Glossary</Title>
-      <Description>Find definitions and explanations of key terms used in this application.</Description>
-      
+      <Description>
+        Find definitions and explanations of key terms used in this application.
+        Use the search bar below to quickly find specific terms.
+      </Description>
+
       <SearchBarContainer>
-        <SearchBar />
+        <SearchBar
+          data={glossaryData}
+          onResultSelect={handleResultSelect}
+          placeholder="Search glossary terms..."
+          primaryKey="term"
+          secondaryKey="definition"
+        />
       </SearchBarContainer>
 
       <GlossaryGrid>
-        <GlossaryCard>
-          <GlossaryTerm>API</GlossaryTerm>
-          <GlossaryDefinition>
-            API stands for Application Programming Interface. It is a set of rules that allows different software applications to communicate with each other.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Component</GlossaryTerm>
-          <GlossaryDefinition>
-            In React, a component is a reusable piece of UI that can be rendered as part of the application. Components can be functional or class-based.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>State</GlossaryTerm>
-          <GlossaryDefinition>
-            State refers to the data or information maintained by a component that can change over time and affect how the component renders.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Props</GlossaryTerm>
-          <GlossaryDefinition>
-            Props (short for properties) are inputs to a React component that allow data to be passed from a parent component to a child component.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Reducer</GlossaryTerm>
-          <GlossaryDefinition>
-            A reducer is a function used in state management (like Redux) to specify how the state of an application changes in response to actions.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Reducer</GlossaryTerm>
-          <GlossaryDefinition>
-            A reducer is a function used in state management (like Redux) to specify how the state of an application changes in response to actions.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Reducer</GlossaryTerm>
-          <GlossaryDefinition>
-            A reducer is a function used in state management (like Redux) to specify how the state of an application changes in response to actions.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Reducer</GlossaryTerm>
-          <GlossaryDefinition>
-            A reducer is a function used in state management (like Redux) to specify how the state of an application changes in response to actions.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Hook</GlossaryTerm>
-          <GlossaryDefinition>
-            Hooks are functions that let you use state and other React features without writing a class. Examples include `useState` and `useEffect`.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Event Handler</GlossaryTerm>
-          <GlossaryDefinition>
-            An event handler is a function that responds to user interactions or other events, such as clicks, form submissions, or keyboard inputs.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Virtual DOM</GlossaryTerm>
-          <GlossaryDefinition>
-            The Virtual DOM is a lightweight copy of the actual DOM used by React to optimize rendering and improve performance by minimizing direct manipulation of the real DOM.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Virtual DOM</GlossaryTerm>
-          <GlossaryDefinition>
-            The Virtual DOM is a lightweight copy of the actual DOM used by React to optimize rendering and improve performance by minimizing direct manipulation of the real DOM.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Virtual DOM</GlossaryTerm>
-          <GlossaryDefinition>
-            The Virtual DOM is a lightweight copy of the actual DOM used by React to optimize rendering and improve performance by minimizing direct manipulation of the real DOM.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Virtual DOM</GlossaryTerm>
-          <GlossaryDefinition>
-            The Virtual DOM is a lightweight copy of the actual DOM used by React to optimize rendering and improve performance by minimizing direct manipulation of the real DOM.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Virtual DOM</GlossaryTerm>
-          <GlossaryDefinition>
-            The Virtual DOM is a lightweight copy of the actual DOM used by React to optimize rendering and improve performance by minimizing direct manipulation of the real DOM.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Virtual DOM</GlossaryTerm>
-          <GlossaryDefinition>
-            The Virtual DOM is a lightweight copy of the actual DOM used by React to optimize rendering and improve performance by minimizing direct manipulation of the real DOM.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Virtual DOM</GlossaryTerm>
-          <GlossaryDefinition>
-            The Virtual DOM is a lightweight copy of the actual DOM used by React to optimize rendering and improve performance by minimizing direct manipulation of the real DOM.
-          </GlossaryDefinition>
-        </GlossaryCard>
-        <GlossaryCard>
-          <GlossaryTerm>Virtual DOM</GlossaryTerm>
-          <GlossaryDefinition>
-            The Virtual DOM is a lightweight copy of the actual DOM used by React to optimize rendering and improve performance by minimizing direct manipulation of the real DOM.
-          </GlossaryDefinition>
-        </GlossaryCard>
+        {glossaryData.map((item, index) => (
+          <GlossaryCard
+            key={index}
+            id={item.term}
+            style={selectedTerm?.term === item.term ? {
+              border: '2px solid #0b59de',
+              transform: 'translateY(-5px)',
+              boxShadow: '0 12px 20px rgba(11, 89, 222, 0.2)'
+            } : {}}
+          >
+            <GlossaryTerm>{item.term}</GlossaryTerm>
+            <GlossaryDefinition>{item.definition}</GlossaryDefinition>
+          </GlossaryCard>
+        ))}
       </GlossaryGrid>
     </GlossaryContainer>
   );

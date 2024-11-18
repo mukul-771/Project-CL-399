@@ -75,59 +75,73 @@ const FeatureDescription = styled.p`
 `;
 
 function Features() {
+  const features = [
+    {
+      title: "Peptide Analysis",
+      description: "Advanced tools for analyzing peptide sequences and structures with detailed molecular insights."
+    },
+    {
+      title: "Surface Characterization",
+      description: "Comprehensive surface analysis tools for understanding material properties and interactions."
+    },
+    {
+      title: "Interactive Visualization",
+      description: "Dynamic 3D visualization of molecular structures and surface topographies."
+    },
+    {
+      title: "Data Integration",
+      description: "Seamless integration of experimental data with computational predictions."
+    },
+    {
+      title: "Customizable Workflows",
+      description: "Create and save custom analysis workflows tailored to your research needs."
+    },
+    {
+      title: "Real-time Collaboration",
+      description: "Work together with team members in real-time on complex research projects."
+    },
+    {
+      title: "Advanced Analytics",
+      description: "Powerful statistical tools and machine learning algorithms for data analysis."
+    },
+    {
+      title: "Export Capabilities",
+      description: "Export your results in multiple formats for publications and presentations."
+    },
+    {
+      title: "Database Access",
+      description: "Direct access to comprehensive peptide and surface databases."
+    },
+    {
+      title: "Automated Reports",
+      description: "Generate detailed reports of your analyses with just a few clicks."
+    },
+    {
+      title: "Cloud Storage",
+      description: "Secure cloud storage for all your research data and results."
+    },
+    {
+      title: "API Integration",
+      description: "Connect with other research tools through our robust API system."
+    }
+  ];
+
   return (
     <FeaturesContainer>
-      <Title>Features</Title>
-      <Description>Explore the features of CODEV and learn how it can assist you.</Description>
+      <Title>Platform Features</Title>
+      <Description>
+        Discover our comprehensive suite of research tools designed to accelerate 
+        your peptide-surface interaction studies. Our platform combines cutting-edge 
+        technology with user-friendly interfaces to enhance your research experience.
+      </Description>
+
       <FeatureGrid>
-        <FeatureCard>
-          <FeatureTitle>Real-time Sync</FeatureTitle>
-          <FeatureDescription>Instantly synchronize your data across all devices.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Advanced Analytics</FeatureTitle>
-          <FeatureDescription>Analyze data deeply with our advanced tools and reports.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Custom UI</FeatureTitle>
-          <FeatureDescription>Personalize the user interface to fit your needs.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Secure Storage</FeatureTitle>
-          <FeatureDescription>Ensure your data is protected with top-notch encryption.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Seamless Integration</FeatureTitle>
-          <FeatureDescription>Effortlessly connect with various popular platforms.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Automated Backups</FeatureTitle>
-          <FeatureDescription>Automatic backups to keep your data safe and recoverable.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Intuitive Dashboard</FeatureTitle>
-          <FeatureDescription>Navigate easily with our user-friendly dashboard.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>24/7 Support</FeatureTitle>
-          <FeatureDescription>Get round-the-clock support for any issues or queries.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Cloud Access</FeatureTitle>
-          <FeatureDescription>Access your data from anywhere with cloud connectivity.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Multi-language Support</FeatureTitle>
-          <FeatureDescription>Use our application in various languages to suit your preference.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Custom Alerts</FeatureTitle>
-          <FeatureDescription>Set custom alerts for important notifications and events.</FeatureDescription>
-        </FeatureCard>
-        <FeatureCard>
-          <FeatureTitle>Data Visualization</FeatureTitle>
-          <FeatureDescription>Visualize your data with customizable charts and graphs.</FeatureDescription>
-        </FeatureCard>
+        {features.map((feature, index) => (
+          <FeatureCard key={index}>
+            <FeatureTitle>{feature.title}</FeatureTitle>
+            <FeatureDescription>{feature.description}</FeatureDescription>
+          </FeatureCard>
+        ))}
       </FeatureGrid>
     </FeaturesContainer>
   );
