@@ -47,6 +47,8 @@ A modern React application template built with Create React App, providing a sol
 ### Installation
 1. Clone the repository
 
+#bash
+
 git clone https://github.com/yourusername/your-project-name.git
 
 2. Navigate to the project directory
