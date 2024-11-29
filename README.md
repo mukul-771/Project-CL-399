@@ -224,8 +224,8 @@ This project is PWA-ready. To customize:
 ## 📞 Contact
 Mukul meena 
 Email - mukul.meena@iitgn.ac.in
-
-Project Link: [https://github.com/yourusername/your-project-name](https://github.com/yourusername/your-project-name)
+Personal - mukulmee771@gmail.com
+github Link: [https://github.com/yourusername](https://github.com/mukul-771)
 
 ## 🙏 Acknowledgments
 - [Create React App](https://create-react-app.dev/)
