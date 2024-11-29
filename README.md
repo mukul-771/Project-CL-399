@@ -74,42 +74,6 @@ or
 ```bash
 yarn start
 ```
-## 🛠️ Available Scripts
-
-
-### Development
-
-# Start development server
-npm start
-
-# Run tests
-npm test
-
-# Build for production
-npm run build
-
-# Run linter
-npm run lint
-
-# Fix linting errors
-npm run lint:fix
-
-# Format code
-npm run format
-
-# Check types
-npm run type-check
-
-### Production
-
-# Build for production
-npm run build
-
-# Serve production build locally
-npm run serve
-
-# Analyze bundle size
-npm run analyze
 
 ## 🏗️ Project Structure
 ```
