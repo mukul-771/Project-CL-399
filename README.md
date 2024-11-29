@@ -47,34 +47,33 @@ A modern React application template built with Create React App, providing a sol
 ### Installation
 1. Clone the repository
 
-#bash
-
+```bash
 git clone https://github.com/yourusername/your-project-name.git
-
+```
 2. Navigate to the project directory
-
+```bash
 cd your-project-name
-
+```
 3. Install dependencies
-
+```bash
 npm install
-
+```
 or
-
+```bash
 yarn install
-
+```
 4. Create environment file
-
+```bash
 cp .env.example .env
-
+```
 5. Start the development server
-
+```bash
 npm start
-
+```
 or
-
+```bash
 yarn start
-
+```
 ## 🛠️ Available Scripts
 
 
